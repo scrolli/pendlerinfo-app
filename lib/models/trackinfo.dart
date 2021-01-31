@@ -9,10 +9,10 @@ class Trackinfo {
 
   factory Trackinfo.fromJson(Map<String, dynamic> json) {
     return Trackinfo(
-      level: json['level'],
-      published: DateTime.parse(json['published']),
-      title: json['title'],
-      message: json['message']
+        level: json['level'],
+        published: DateTime.parse(json['published']),
+        title: json['title'],
+        message: json['message']
     );
   }
 }

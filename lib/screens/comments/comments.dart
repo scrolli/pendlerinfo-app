@@ -9,15 +9,6 @@ class CommentsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    void _showSettingsPanel() {
-      showModalBottomSheet(context: context, builder: (context) {
-        return Container(
-          padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 60.0),
-          //child: SettingsForm(),
-        );
-      });
-    }
-
     return StreamProvider<List<Comment>>.value(
       value: Stream.fromFuture(fetchComments()),
       child: Scaffold(

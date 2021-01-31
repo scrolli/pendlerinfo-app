@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class ArrivalTime {
 
   final DateTime planned;

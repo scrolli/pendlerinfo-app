@@ -34,7 +34,7 @@ class _HomeState extends State<Home> {
           for (final tabItem in TabNavigationItem.items)
             BottomNavigationBarItem(
               icon: tabItem.icon,
-              title: tabItem.title,
+              label: tabItem.title,
             )
         ],
       ),
@@ -44,7 +44,7 @@ class _HomeState extends State<Home> {
 
 class TabNavigationItem {
   final Widget page;
-  final Widget title;
+  final String title;
   final Icon icon;
 
   TabNavigationItem({
@@ -57,17 +57,17 @@ class TabNavigationItem {
     TabNavigationItem(
       page: TimetablePage(),
       icon: Icon(Icons.access_time),
-      title: Text("Abfahrtszeiten"),
+      title: "Abfahrtszeiten",
     ),
     TabNavigationItem(
       page: TrackinfosPage(),
       icon: Icon(Icons.add_alert),
-      title: Text("Streckenmeldungen"),
+      title: "Streckenmeldungen",
     ),
     TabNavigationItem(
       page: CommentsPage(),
       icon: Icon(Icons.comment_rounded),
-      title: Text("Kommentare"),
+      title: "Kommentare",
     ),
   ];
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:pendlerinfo/models/arrival_time.dart';
-import 'dart:convert';
 import 'package:pendlerinfo/models/comment.dart';
 import 'package:pendlerinfo/models/departure_time.dart';
 import 'package:pendlerinfo/models/featured_destination.dart';
