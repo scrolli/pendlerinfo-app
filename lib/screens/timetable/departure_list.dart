@@ -14,10 +14,11 @@ class _DepartureListState extends State<DepartureList> {
 
     final departures = Provider.of<List<Departure>>(context) ?? [];
 
+    var futureDepartures = departures.where((d) => !d.status.left).toList();
     return ListView.builder(
-      itemCount: departures.length,
+      itemCount: futureDepartures.length,
       itemBuilder: (context, index) {
-        return DepartureTile(departure: departures[index]);
+        return DepartureTile(departure: futureDepartures[index]);
       },
     );
   }

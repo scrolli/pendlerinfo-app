@@ -13,4 +13,5 @@ class Trackinfos {
       further: List<Trackinfo>.from(json['further'].map((t) => Trackinfo.fromJson(t)))
     );
   }
+
 }

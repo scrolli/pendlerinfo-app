@@ -1,6 +1,6 @@
 import 'package:pendlerinfo/models/departure.dart';
 import 'package:pendlerinfo/models/station.dart';
-import 'package:pendlerinfo/models/trackinfos.dart';
+import 'package:pendlerinfo/models/trackinfo.dart';
 import 'package:pendlerinfo/models/comment.dart';
 import 'dart:async';
 import 'dart:convert';
@@ -27,12 +27,12 @@ Future<List<Departure>> fetchDepartures() async {
   }
 }
 
-Future<Trackinfos> fetchTrackinfos() async {
+Future<List<Trackinfo>> fetchTrackinfos() async {
   final response = await http.get(
       'https://api.pendlerinfo.app/trackinfos');
   if (response.statusCode == 200) {
-    final val = json.decode(response.body);
-    return Trackinfos.fromJson(val);
+    final List parsedList = json.decode(response.body);
+    return List<Trackinfo>.from(parsedList.map((val) => Trackinfo.fromJson(val)));
   } else {
     throw Exception('Failed to load trackinfos');
   }

@@ -8,11 +8,10 @@ class CommentsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return StreamProvider<List<Comment>>.value(
       value: Stream.fromFuture(fetchComments()),
       child: Scaffold(
-        backgroundColor: Colors.blue[400],
+        backgroundColor: Colors.grey[400],
         appBar: AppBar(
           title: Text('Pendlerinfo'),
           backgroundColor: Colors.blue[900],
