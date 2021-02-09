@@ -18,16 +18,11 @@ class DepartureCommentTile extends StatelessWidget {
           padding: EdgeInsets.all(4),
           child: Row(children: [
             Flexible(
-              child: Text(
-                comment.message + '             ',
-                  style:  TextStyle(
-                      fontWeight: FontWeight.bold
-                  )
-              ),
+              child: Text(comment.message + '             ',
+                  style: TextStyle(fontWeight: FontWeight.bold)),
             ),
             Text(DateFormat('kk:mm').format(comment.published),
-                textAlign: TextAlign.right
-            )
+                textAlign: TextAlign.right)
           ]),
         ),
       ),
