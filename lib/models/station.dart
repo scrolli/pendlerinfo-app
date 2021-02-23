@@ -13,4 +13,7 @@ class Station {
       eva: int.parse(json['eva'])
     );
   }
+
+  @override
+  String toString() => name;
 }

@@ -1,5 +1,5 @@
-import 'package:pendlerinfo/models/departure.dart';
-import 'package:pendlerinfo/screens/timetable/departure_list.dart';
+import 'package:pendlerinfo/models/station.dart';
+import 'package:pendlerinfo/screens/timetable/station_selector.dart';
 import 'package:pendlerinfo/services/pendlerinfo.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -8,9 +8,7 @@ class TimetablePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamProvider<List<Departure>>.value(
-      value: Stream.fromFuture(fetchDepartures()),
-      child: Scaffold(
+    return Scaffold(
         backgroundColor: Colors.grey[400],
         appBar: AppBar(
           title: Text('Pendlerinfo'),
@@ -18,9 +16,11 @@ class TimetablePage extends StatelessWidget {
           elevation: 0.0,
         ),
         body: Container(
-          child: DepartureList()
+          child: StreamProvider<List<Station>>.value(
+                  value: Stream.fromFuture(fetchStations()),
+                  child: StationSelector()
+              )
         ),
-      ),
     );
   }
 }

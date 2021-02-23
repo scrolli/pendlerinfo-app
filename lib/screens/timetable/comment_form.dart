@@ -1,16 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:pendlerinfo/models/comment.dart';
+import 'package:pendlerinfo/services/pendlerinfo.dart';
 
 class CommentForm extends StatefulWidget {
+
+  final String _stopId;
+  final String _number;
+  final String _message;
+
+  CommentForm(this._stopId, this._number, this._message);
+
   @override
-  _CommentFormState createState() => _CommentFormState();
+  _CommentFormState createState() => _CommentFormState(this._stopId, this._number, this._message);
 }
 
 class _CommentFormState extends State<CommentForm> {
   final _formKey = GlobalKey<FormState>();
 
   // form values
+  String _stopId;
   String _number;
   String _message;
+
+  _CommentFormState( this._stopId, this._number, this._message );
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +31,7 @@ class _CommentFormState extends State<CommentForm> {
       child: Column(
         children: <Widget>[
           Text(
-            'Deine Meldung zum Zug',
+            'Deine Meldung zum Zug ' + this._number,
             style: TextStyle(fontSize: 18.0),
           ),
           SizedBox(height: 50.0),
@@ -42,11 +54,7 @@ class _CommentFormState extends State<CommentForm> {
               ),
               onPressed: () async {
                 if (_formKey.currentState.validate()) {
-                  /*await DatabaseService(uid: user.uid).updateUserData(
-                        _currentSugars ?? snapshot.data.sugars,
-                        _currentName ?? snapshot.data.name,
-                        _currentStrength ?? snapshot.data.strength
-                      );*/
+                  await putComment(Comment(stopId: _stopId, number: _number, message: _message));
                   Navigator.pop(context);
                 }
               }),

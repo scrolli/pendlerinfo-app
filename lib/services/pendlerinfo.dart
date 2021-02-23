@@ -1,4 +1,7 @@
+import 'dart:io';
+import 'package:path_provider/path_provider.dart';
 import 'package:pendlerinfo/models/departure.dart';
+import 'package:pendlerinfo/models/response.dart';
 import 'package:pendlerinfo/models/station.dart';
 import 'package:pendlerinfo/models/trackinfo.dart';
 import 'package:pendlerinfo/models/comment.dart';
@@ -7,44 +10,95 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 Future<List<Station>> fetchStations() async {
+  final dir = await getApplicationDocumentsDirectory();
+  final file = new File("${dir.path}/stations");
+
   final response = await http.get('https://api.pendlerinfo.app/stations');
   if (response.statusCode == 200) {
+    file.writeAsString(response.body, flush: true, mode: FileMode.write);
     final List parsedList = json.decode(response.body);
     return parsedList.map((val) => Station.fromJson(val)).toList();
+  } else if (file.existsSync()) {
+    var response = await file.readAsString();
+    final List parsedList = json.decode(response);
+    return parsedList.map((val) => Station.fromJson(val)).toList();
   } else {
-    throw Exception('Failed to load stations');
+    return List.empty();
   }
 }
 
-Future<List<Departure>> fetchDepartures() async {
+Future<List<Departure>> fetchDepartures(int station, Station destination) async {
+  final dir = await getApplicationDocumentsDirectory();
+  final file = new File("${dir.path}/timetable/{$station}");
+
+  print("${dir.path}/timetable/{$station}");
+
   final response = await http.get(
-      'https://api.pendlerinfo.app/timetable?station=8000261');
+      'https://api.pendlerinfo.app/timetable?station=' + station.toString());
   if (response.statusCode == 200) {
+    file.writeAsString(response.body, flush: true, mode: FileMode.write);
     final List parsedList = json.decode(response.body);
+    return parsedList.map((val) => Departure.fromJson(val)).where((d) => d.path.planned.contains(destination.name)).toList();
+  } else if (file.existsSync()) {
+    var response = await file.readAsString();
+    final List parsedList = json.decode(response);
     return parsedList.map((val) => Departure.fromJson(val)).toList();
   } else {
-    throw Exception('Failed to load departures');
+    return List.empty();
   }
 }
 
 Future<List<Trackinfo>> fetchTrackinfos() async {
+  final dir = await getApplicationDocumentsDirectory();
+  final file = new File("${dir.path}/trackinfos");
+
   final response = await http.get(
       'https://api.pendlerinfo.app/trackinfos');
   if (response.statusCode == 200) {
+    file.writeAsString(response.body, flush: true, mode: FileMode.write);
     final List parsedList = json.decode(response.body);
     return List<Trackinfo>.from(parsedList.map((val) => Trackinfo.fromJson(val)));
+  } else if (file.existsSync()) {
+    var response = await file.readAsString();
+    final List parsedList = json.decode(response);
+    return List<Trackinfo>.from(parsedList.map((val) => Trackinfo.fromJson(val)));
   } else {
-    throw Exception('Failed to load trackinfos');
+    return List.empty();
   }
 }
 
 Future<List<Comment>> fetchComments() async {
+  final dir = await getApplicationDocumentsDirectory();
+  final file = new File("${dir.path}/comments");
+
   final response = await http.get(
       'https://api.pendlerinfo.app/comments');
   if (response.statusCode == 200) {
     final List parsedList = json.decode(response.body);
     return List<Comment>.from(parsedList.map((val) => Comment.fromJson(val)));
+  } else if (file.existsSync()) {
+    var response = await file.readAsString();
+    final List parsedList = json.decode(response);
+    return List<Comment>.from(parsedList.map((val) => Comment.fromJson(val)));
   } else {
-    throw Exception('Failed to load comments');
+    return List.empty();
+  }
+}
+
+Future<void> putComment(Comment comment) async {
+  HttpClient httpClient = new HttpClient();
+  HttpClientRequest request = await httpClient.putUrl(Uri.parse('https://api.pendlerinfo.app/comment'));
+  request.headers.set('content-type', 'application/json');
+  request.add(utf8.encode(json.encode(comment.toJson())));
+  HttpClientResponse response = await request.close();
+  final res = await response.transform(utf8.decoder).join();
+  print(res);
+  if (response.statusCode == 200) {
+    final result = Response.fromJson(json.decode(res));
+    if (!result.success) {
+      throw Exception('Failed to post comment!');
+    }
+  } else {
+    throw Exception('Failed to load comment!');
   }
 }

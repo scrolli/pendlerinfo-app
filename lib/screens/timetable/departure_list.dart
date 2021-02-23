@@ -11,10 +11,9 @@ class DepartureList extends StatefulWidget {
 class _DepartureListState extends State<DepartureList> {
   @override
   Widget build(BuildContext context) {
+    final departures = Provider.of<List<Departure>>(context, listen: true) ?? [];
 
-    final departures = Provider.of<List<Departure>>(context) ?? [];
-
-    var futureDepartures = departures.where((d) => !d.status.left).toList();
+    var futureDepartures = departures;
     return ListView.builder(
       itemCount: futureDepartures.length,
       itemBuilder: (context, index) {
@@ -22,5 +21,4 @@ class _DepartureListState extends State<DepartureList> {
       },
     );
   }
-
 }

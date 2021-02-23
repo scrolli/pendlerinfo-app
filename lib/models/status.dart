@@ -10,7 +10,7 @@ class Status {
   factory Status.fromJson(Map<String, dynamic> json) {
     return Status(
       started: json['started'],
-      left: json['started'],
+      left: json['left'],
       cancelled: json['cancelled'],
       reason: json['reason']
     );

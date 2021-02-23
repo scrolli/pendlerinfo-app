@@ -16,7 +16,11 @@ class _FeaturedTrackinfoListState extends State<FeaturedTrackinfoList> {
 
     var featuredTrackinfos = trackinfos.where((i) => i.featured == true).toList();
     if (featuredTrackinfos.length < 1) {
-      return Flexible(child: Text('derzeit keine Meldungen'));
+      return SizedBox(width:  MediaQuery
+          .of(context)
+          .size
+          .width,
+          child: Text('derzeit keine Meldungen'));
     }
     return ListView.builder(
       itemCount: featuredTrackinfos.length,

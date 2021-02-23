@@ -20,7 +20,8 @@ class DepartureTile extends StatelessWidget {
           builder: (context) {
             return Container(
               padding: EdgeInsets.symmetric(vertical: 60.0, horizontal: 60.0),
-              child: CommentForm(),
+              child: CommentForm(
+                  this.departure.stopId, this.departure.number, ''),
             );
           });
     }
@@ -32,7 +33,9 @@ class DepartureTile extends StatelessWidget {
           child: Column(children: [
             Row(
               children: [
-                Column(children: [
+                SizedBox(
+          width: 90,
+            child: Column(children: [
                   Row(
                     children: [
                       SizedBox(
@@ -50,7 +53,7 @@ class DepartureTile extends StatelessWidget {
                                 Text(
                                     departure.departure.prediction != null
                                         ? DateFormat('kk:mm').format(
-                                            departure.departure.prediction)
+                                        departure.departure.prediction)
                                         : '',
                                     style: TextStyle(
                                         color: Color.fromRGBO(29, 170, 202, 10),
@@ -77,21 +80,12 @@ class DepartureTile extends StatelessWidget {
                   Row(
                     children: [Text(departure.number)],
                   )
-                ]),
+                ])),
                 SizedBox(
                   width: 240,
                   child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          Text(departure.status.reason ?? ''),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Text(''),
-                        ],
-                      ),
+                    children: [//Text(departure.path.planned),
+                      InfoLinesWidget(departure: departure),
                       Row(
                         children: [
                           Text(departure.destination,
@@ -124,7 +118,7 @@ class DepartureTile extends StatelessWidget {
                             child: Text(
                               departure.featuredDestination.arrival != null
                                   ? DateFormat('kk:mm').format(
-                                      departure.featuredDestination.arrival)
+                                  departure.featuredDestination.arrival)
                                   : '',
                               style: TextStyle(fontSize: 10),
                             )),
@@ -190,6 +184,60 @@ class ChangedDepartureWidget extends StatelessWidget {
     }
   }
 }
+
+class InfoLinesWidget extends StatelessWidget {
+  final Departure departure;
+
+  InfoLinesWidget({this.departure});
+
+  @override
+  Widget build(BuildContext context) {
+    String notLeft = '';
+    String left = '';
+    String reason = '';
+    //String pth = '';
+    if (departure.status.left) {
+      left = 'abgefahren!';
+    } else if (DateTime.now().add(Duration(minutes: -1)).isAfter(
+        departure.departure.changed ?? departure.departure.planned)) {
+      notLeft = 'Zug noch da!';
+    }
+    if (departure.status.reason != null && departure.status.reason.length > 0) {
+      reason = departure.status.reason;
+    } else {
+      //pth = departure.path.planned.substring(0,50);
+    }
+    return SizedBox(
+        width: 600,
+        height: 30,
+        child: Row(
+            children: [
+              Text(notLeft,
+                style: TextStyle(
+                    color: Color.fromRGBO(29, 170, 202, 10),
+                    fontWeight: FontWeight.bold),
+              ),
+              Text(left,
+                  style: TextStyle(
+                      color: Colors.red, fontWeight: FontWeight.bold)),
+              SizedBox(width: 240,
+                height:30,
+                  child:
+                  Text(reason,
+                  overflow: TextOverflow.clip,
+                  textWidthBasis: TextWidthBasis.parent,
+                  maxLines: 3,
+                  style: TextStyle(
+                    color: Colors.red))
+              ),
+              Flexible(child: Text(' ', overflow: TextOverflow.fade))
+              //Flexible(child: Text(pth, overflow: TextOverflow.fade))
+            ]
+        )
+    );
+  }
+}
+
 
 class CommentsWidget extends StatelessWidget {
   final List<Comment> comments;
