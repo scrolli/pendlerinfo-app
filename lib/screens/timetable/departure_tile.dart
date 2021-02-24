@@ -34,7 +34,7 @@ class DepartureTile extends StatelessWidget {
             Row(
               children: [
                 SizedBox(
-                    width: MediaQuery.of(context).size.width / 5,
+                    width: MediaQuery.of(context).size.width / 4.8,
                     child: Column(children: [
                       Row(
                         children: [
@@ -85,7 +85,7 @@ class DepartureTile extends StatelessWidget {
                       )
                     ])),
                 SizedBox(
-                  width: MediaQuery.of(context).size.width / 5 * 3.1,
+                  width: MediaQuery.of(context).size.width / 5 * 3,
                   child: Column(
                     children: [
                       //Text(departure.path.planned),
