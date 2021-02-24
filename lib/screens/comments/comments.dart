@@ -13,7 +13,7 @@ class CommentsPage extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Colors.grey[400],
         appBar: AppBar(
-          title: Text('Pendlerinfo'),
+          title: Text('Pendlerinfo - Kommentare'),
           backgroundColor: Colors.blue[900],
           elevation: 0.0,
         ),

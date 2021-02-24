@@ -30,65 +30,69 @@ class _StationSelectorState extends State<StationSelector> {
     }
     _data = fetchDepartures(_departureStation.eva, _destinationStation);
 
-    return Padding(
-        padding: const EdgeInsets.only(top: 4.0),
-        child:
-            Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-          Row(children: [
-            Container(
-              color: Colors.white,
-              width: MediaQuery.of(context).size.width / 2,
-              height: MediaQuery.of(context).size.height / 7,
-              child: DropdownSearch<Station>(
-                mode: Mode.BOTTOM_SHEET,
-                maxHeight: 300,
-                items: stations,
-                selectedItem: _departureStation,
-                label: "Abfahrt",
-                onChanged: (dynamic value) {
-                  var _prevDeparture = _departureStation;
-                  if (value.eva == _destinationStation) {
-                    _destinationStation = _prevDeparture;
-                  }
-                  setState(() => _departureStation = value);
-                },
-                showSearchBox: true,
-                searchBoxDecoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  contentPadding: EdgeInsets.fromLTRB(12, 12, 8, 0),
-                  labelText: "Wähle den Abfahrtsbahnhof",
-                ),
+    return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+      Row(children: [
+        Container(
+          color: Colors.white,
+          width: MediaQuery.of(context).size.width / 2,
+          height: MediaQuery.of(context).size.height / 10,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 4.0),
+            child: DropdownSearch<Station>(
+              mode: Mode.BOTTOM_SHEET,
+              maxHeight: 300,
+              items: stations,
+              selectedItem: _departureStation,
+              label: "Abfahrt",
+              onChanged: (dynamic value) {
+                var _prevDeparture = _departureStation;
+                if (value.eva == _destinationStation) {
+                  _destinationStation = _prevDeparture;
+                }
+                setState(() => _departureStation = value);
+              },
+              showSearchBox: true,
+              searchBoxDecoration: InputDecoration(
+                border: OutlineInputBorder(),
+                contentPadding: EdgeInsets.fromLTRB(12, 12, 8, 0),
+                labelText: "Wähle den Abfahrtsbahnhof",
               ),
             ),
-            Container(
-              color: Colors.white,
-              width: MediaQuery.of(context).size.width / 2,
-              height: MediaQuery.of(context).size.height / 7,
-              child: DropdownSearch<Station>(
-                mode: Mode.BOTTOM_SHEET,
-                maxHeight: 300,
-                items: stations,
-                selectedItem: _destinationStation,
-                label: "Ziel",
-                onChanged: (dynamic value) {
-                  setState(() => _destinationStation = value);
-                },
-                showSearchBox: true,
-                searchBoxDecoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  contentPadding: EdgeInsets.fromLTRB(12, 12, 8, 0),
-                  labelText: "Wähle den Zielbahnhof",
-                ),
+          ),
+        ),
+        Container(
+          color: Colors.white,
+          width: MediaQuery.of(context).size.width / 2,
+          height: MediaQuery.of(context).size.height / 10,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 4.0),
+            child: DropdownSearch<Station>(
+              mode: Mode.BOTTOM_SHEET,
+              maxHeight: 300,
+              items: stations,
+              selectedItem: _destinationStation,
+              label: "Ziel",
+              onChanged: (dynamic value) {
+                setState(() => _destinationStation = value);
+              },
+              showSearchBox: true,
+              searchBoxDecoration: InputDecoration(
+                border: OutlineInputBorder(),
+                contentPadding: EdgeInsets.fromLTRB(12, 12, 8, 0),
+                labelText: "Wähle den Zielbahnhof",
               ),
             ),
-          ]),
-          departureList(_data)
-        ]));
+          ),
+        ),
+      ]),
+      departureList(_data)
+    ]);
   }
 
   Widget departureList(Future<List<Departure>> departures) {
     return Container(
-      height: MediaQuery.of(context).size.height / 5 * 3.2,
+      //height: MediaQuery.of(context).size.height / 5 * 3.2,
+      height: MediaQuery.of(context).size.height / 5 * 3.5,
       child: StreamProvider<List<Departure>>.value(
           value: Stream.fromFuture(departures), child: DepartureList()),
     );

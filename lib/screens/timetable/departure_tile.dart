@@ -19,9 +19,9 @@ class DepartureTile extends StatelessWidget {
           context: context,
           builder: (context) {
             return Container(
-              padding: EdgeInsets.symmetric(vertical: 60.0, horizontal: 60.0),
-              child: CommentForm(
-                  this.departure.stopId, this.departure.number, ''),
+              padding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 30.0),
+              child:
+                  CommentForm(this.departure.stopId, this.departure.number, ''),
             );
           });
     }
@@ -34,57 +34,61 @@ class DepartureTile extends StatelessWidget {
             Row(
               children: [
                 SizedBox(
-          width: 90,
-            child: Column(children: [
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: 35,
-                        child: Column(
-                          children: [
-                            Row(
+                    width: MediaQuery.of(context).size.width / 5,
+                    child: Column(children: [
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: 35,
+                            child: Column(
                               children: [
-                                ChangedDepartureWidget(
-                                    departure: departure.departure)
+                                Row(
+                                  children: [
+                                    ChangedDepartureWidget(
+                                        departure: departure.departure)
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Text(
+                                        departure.departure.prediction != null
+                                            ? DateFormat('kk:mm').format(
+                                                departure.departure.prediction)
+                                            : '',
+                                        style: TextStyle(
+                                          color:
+                                              Color.fromRGBO(29, 170, 202, 10),
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 12,
+                                        ))
+                                  ],
+                                )
                               ],
                             ),
-                            Row(
-                              children: [
-                                Text(
-                                    departure.departure.prediction != null
-                                        ? DateFormat('kk:mm').format(
-                                        departure.departure.prediction)
-                                        : '',
-                                    style: TextStyle(
-                                        color: Color.fromRGBO(29, 170, 202, 10),
-                                        fontWeight: FontWeight.w400))
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text(
-                              DateFormat('kk:mm')
-                                  .format(departure.departure.planned),
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ))
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                  DateFormat('kk:mm')
+                                      .format(departure.departure.planned),
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ))
+                            ],
+                          )
                         ],
+                      ),
+                      Row(
+                        children: [Text(departure.number)],
                       )
-                    ],
-                  ),
-                  Row(
-                    children: [Text(departure.number)],
-                  )
-                ])),
+                    ])),
                 SizedBox(
-                  width: 240,
+                  width: MediaQuery.of(context).size.width / 5 * 3.1,
                   child: Column(
-                    children: [//Text(departure.path.planned),
+                    children: [
+                      //Text(departure.path.planned),
                       InfoLinesWidget(departure: departure),
                       Row(
                         children: [
@@ -100,7 +104,7 @@ class DepartureTile extends StatelessWidget {
                 Column(
                   children: [
                     SizedBox(
-                        width: 40,
+                        width: MediaQuery.of(context).size.width / 12,
                         child: IconButton(
                           icon: Icon(Icons.add_comment_rounded),
                           tooltip: 'Sag was zu diesem Zug',
@@ -118,7 +122,7 @@ class DepartureTile extends StatelessWidget {
                             child: Text(
                               departure.featuredDestination.arrival != null
                                   ? DateFormat('kk:mm').format(
-                                  departure.featuredDestination.arrival)
+                                      departure.featuredDestination.arrival)
                                   : '',
                               style: TextStyle(fontSize: 10),
                             )),
@@ -128,7 +132,7 @@ class DepartureTile extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.baseline,
                       children: [
                         SizedBox(
-                            height: 30,
+                            height: MediaQuery.of(context).size.width / 12,
                             child: PlatformWidget(platform: departure.platform))
                       ],
                     )
@@ -174,11 +178,11 @@ class ChangedDepartureWidget extends StatelessWidget {
         departure.changed.isAfter(departure.planned)) {
       return Text(
         DateFormat('kk:mm').format(departure.changed),
-        style: TextStyle(color: Colors.red),
+        style: TextStyle(color: Colors.red, fontSize: 12),
       );
     } else if (departure.changed != null) {
       return Text(DateFormat('kk:mm').format(departure.changed),
-          style: TextStyle(color: Colors.grey));
+          style: TextStyle(color: Colors.grey, fontSize: 12));
     } else {
       return Text('');
     }
@@ -198,8 +202,9 @@ class InfoLinesWidget extends StatelessWidget {
     //String pth = '';
     if (departure.status.left) {
       left = 'abgefahren!';
-    } else if (DateTime.now().add(Duration(minutes: -1)).isAfter(
-        departure.departure.changed ?? departure.departure.planned)) {
+    } else if (DateTime.now()
+        .add(Duration(minutes: -1))
+        .isAfter(departure.departure.changed ?? departure.departure.planned)) {
       notLeft = 'Zug noch da!';
     }
     if (departure.status.reason != null && departure.status.reason.length > 0) {
@@ -210,34 +215,28 @@ class InfoLinesWidget extends StatelessWidget {
     return SizedBox(
         width: 600,
         height: 30,
-        child: Row(
-            children: [
-              Text(notLeft,
-                style: TextStyle(
-                    color: Color.fromRGBO(29, 170, 202, 10),
-                    fontWeight: FontWeight.bold),
-              ),
-              Text(left,
-                  style: TextStyle(
-                      color: Colors.red, fontWeight: FontWeight.bold)),
-              SizedBox(width: 240,
-                height:30,
-                  child:
-                  Text(reason,
+        child: Row(children: [
+          Text(
+            notLeft,
+            style: TextStyle(
+                color: Color.fromRGBO(29, 170, 202, 10),
+                fontWeight: FontWeight.bold),
+          ),
+          Text(left,
+              style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
+          SizedBox(
+              width: 240,
+              height: 30,
+              child: Text(reason,
                   overflow: TextOverflow.clip,
                   textWidthBasis: TextWidthBasis.parent,
                   maxLines: 3,
-                  style: TextStyle(
-                    color: Colors.red))
-              ),
-              Flexible(child: Text(' ', overflow: TextOverflow.fade))
-              //Flexible(child: Text(pth, overflow: TextOverflow.fade))
-            ]
-        )
-    );
+                  style: TextStyle(color: Colors.red, fontSize: 12))),
+          Flexible(child: Text(' ', overflow: TextOverflow.fade))
+          //Flexible(child: Text(pth, overflow: TextOverflow.fade))
+        ]));
   }
 }
-
 
 class CommentsWidget extends StatelessWidget {
   final List<Comment> comments;

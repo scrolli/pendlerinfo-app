@@ -32,20 +32,20 @@ class _CommentFormState extends State<CommentForm> {
         children: <Widget>[
           Text(
             'Deine Meldung zum Zug ' + this._number,
-            style: TextStyle(fontSize: 18.0),
+            style: TextStyle(fontSize: 15.0),
           ),
-          SizedBox(height: 50.0),
+          SizedBox(height: 20.0),
           TextFormField(
             initialValue: _message,
             //decoration: textInputDecoration,
             keyboardType: TextInputType.text,
             minLines: 1,
-            maxLines: 3,
+            maxLines: 1,
             validator: (val) =>
                 val.isEmpty ? 'Bitte gib einen Kommentar ein' : null,
             onChanged: (val) => setState(() => _message = val),
           ),
-          SizedBox(height: 60.0),
+          SizedBox(height: 100.0),
           RaisedButton(
               color: Colors.blue[900],
               child: Text(

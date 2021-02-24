@@ -57,12 +57,12 @@ class TabNavigationItem {
     TabNavigationItem(
       page: TimetablePage(),
       icon: Icon(Icons.access_time),
-      title: "Abfahrtszeiten",
+      title: "Abfahrt",
     ),
     TabNavigationItem(
       page: TrackinfosPage(),
       icon: Icon(Icons.add_alert),
-      title: "Streckenmeldungen",
+      title: "Streckeninfos",
     ),
     TabNavigationItem(
       page: CommentsPage(),
