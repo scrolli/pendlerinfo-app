@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "335810964293",
+    "project_id": "pendlerinfo-app",
+    "storage_bucket": "pendlerinfo-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:335810964293:android:32f4458aff60f403c76c2c",
+        "android_client_info": {
+          "package_name": "de.sepp.pendlerinfo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "335810964293-99omlk25of4s22h0chki2ocvjbqgpibq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJwzl0Qqh0V0InSnZCGg85dOoNXJWzSYo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "335810964293-99omlk25of4s22h0chki2ocvjbqgpibq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "335810964293-pkreklpn15a2v4h728jkruk0do4i5u62.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "de.sepp.pendlerinfo"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

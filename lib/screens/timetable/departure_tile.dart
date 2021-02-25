@@ -39,7 +39,7 @@ class DepartureTile extends StatelessWidget {
                       Row(
                         children: [
                           SizedBox(
-                            width: 35,
+                            width: (MediaQuery.of(context).size.width / 4.8) / 2.8,
                             child: Column(
                               children: [
                                 Row(

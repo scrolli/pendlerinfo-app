@@ -25,8 +25,8 @@ dependencies:
     sdk: flutter
   provider: ^3.1.0
   http: ">=0.11.3+12"
-  path_provider: ^1.6.27
   intl: 0.16.1
+  path_provider: ^1.6.27
   dropdown_search: ^0.4.8
 
   # The following adds the Cupertino Icons font to your application.

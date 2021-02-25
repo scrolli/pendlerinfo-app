@@ -11,7 +11,7 @@ class TimetablePage extends StatelessWidget {
     return Scaffold(
         backgroundColor: Colors.grey[400],
         appBar: AppBar(
-          title: Text('Pendlerinfo'),
+          title: Text('Pendlerinfo - Abfahrt'),
           backgroundColor: Colors.blue[900],
           elevation: 0.0,
         ),
