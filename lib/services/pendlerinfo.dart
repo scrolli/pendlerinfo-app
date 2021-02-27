@@ -1,5 +1,5 @@
 import 'dart:io';
-//import 'package:path_provider/path_provider.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:pendlerinfo/models/departure.dart';
 import 'package:pendlerinfo/models/response.dart';
 import 'package:pendlerinfo/models/station.dart';
@@ -10,76 +10,76 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 Future<List<Station>> fetchStations() async {
-  //final dir = await getApplicationDocumentsDirectory();
-  //final file = new File("${dir.path}/stations");
+  final dir = await getApplicationDocumentsDirectory();
+  final file = new File("${dir.path}/stations");
 
   final response = await http.get('https://api.pendlerinfo.app/stations');
   if (response.statusCode == 200) {
-    //file.writeAsString(response.body, flush: true, mode: FileMode.write);
+    file.writeAsString(response.body, flush: true, mode: FileMode.write);
     final List parsedList = json.decode(response.body);
     return parsedList.map((val) => Station.fromJson(val)).toList();
-  //} else if (file.existsSync()) {
-  //  var response = await file.readAsString();
-  //  final List parsedList = json.decode(response);
-  //  return parsedList.map((val) => Station.fromJson(val)).toList();
+  } else if (file.existsSync()) {
+    var response = await file.readAsString();
+    final List parsedList = json.decode(response);
+    return parsedList.map((val) => Station.fromJson(val)).toList();
   } else {
     return List.empty();
   }
 }
 
 Future<List<Departure>> fetchDepartures(int station, Station destination) async {
-  //final dir = await getApplicationDocumentsDirectory();
-  //final file = new File("${dir.path}/timetable/{$station}");
+  final dir = await getApplicationDocumentsDirectory();
+  final file = new File("${dir.path}/timetable/{$station}");
 
-  //print("${dir.path}/timetable/{$station}");
+  print("${dir.path}/timetable/{$station}");
 
   final response = await http.get(
       'https://api.pendlerinfo.app/timetable?station=' + station.toString());
   if (response.statusCode == 200) {
-    //file.writeAsString(response.body, flush: true, mode: FileMode.write);
+    file.writeAsString(response.body, flush: true, mode: FileMode.write);
     final List parsedList = json.decode(response.body);
     return parsedList.map((val) => Departure.fromJson(val)).where((d) => d.path.planned.contains(destination.name)).toList();
-  //} else if (file.existsSync()) {
-   // var response = await file.readAsString();
-    //final List parsedList = json.decode(response);
-    //return parsedList.map((val) => Departure.fromJson(val)).toList();
+  } else if (file.existsSync()) {
+    var response = await file.readAsString();
+    final List parsedList = json.decode(response);
+    return parsedList.map((val) => Departure.fromJson(val)).toList();
   } else {
     return List.empty();
   }
 }
 
 Future<List<Trackinfo>> fetchTrackinfos() async {
-  //final dir = await getApplicationDocumentsDirectory();
-  //final file = new File("${dir.path}/trackinfos");
+  final dir = await getApplicationDocumentsDirectory();
+  final file = new File("${dir.path}/trackinfos");
 
   final response = await http.get(
       'https://api.pendlerinfo.app/trackinfos');
   if (response.statusCode == 200) {
-    //file.writeAsString(response.body, flush: true, mode: FileMode.write);
+    file.writeAsString(response.body, flush: true, mode: FileMode.write);
     final List parsedList = json.decode(response.body);
     return List<Trackinfo>.from(parsedList.map((val) => Trackinfo.fromJson(val)));
-  //} else if (file.existsSync()) {
-  //  var response = await file.readAsString();
-  //  final List parsedList = json.decode(response);
-  //  return List<Trackinfo>.from(parsedList.map((val) => Trackinfo.fromJson(val)));
+  } else if (file.existsSync()) {
+    var response = await file.readAsString();
+    final List parsedList = json.decode(response);
+    return List<Trackinfo>.from(parsedList.map((val) => Trackinfo.fromJson(val)));
   } else {
     return List.empty();
   }
 }
 
 Future<List<Comment>> fetchComments() async {
-  //final dir = await getApplicationDocumentsDirectory();
-  //final file = new File("${dir.path}/comments");
+  final dir = await getApplicationDocumentsDirectory();
+  final file = new File("${dir.path}/comments");
 
   final response = await http.get(
       'https://api.pendlerinfo.app/comments');
   if (response.statusCode == 200) {
     final List parsedList = json.decode(response.body);
     return List<Comment>.from(parsedList.map((val) => Comment.fromJson(val)));
-  //} else if (file.existsSync()) {
-  //  var response = await file.readAsString();
-  //  final List parsedList = json.decode(response);
-  //  return List<Comment>.from(parsedList.map((val) => Comment.fromJson(val)));
+  } else if (file.existsSync()) {
+    var response = await file.readAsString();
+    final List parsedList = json.decode(response);
+    return List<Comment>.from(parsedList.map((val) => Comment.fromJson(val)));
   } else {
     return List.empty();
   }
