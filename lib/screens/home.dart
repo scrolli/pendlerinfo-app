@@ -61,7 +61,7 @@ class TabNavigationItem {
     ),
     TabNavigationItem(
       page: TrackinfosPage(),
-      icon: Icon(Icons.add_alert),
+      icon: Icon(Icons.notifications),
       title: "Streckeninfos",
     ),
     TabNavigationItem(

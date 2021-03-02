@@ -4,13 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:pendlerinfo/models/departure_time.dart';
 import 'package:pendlerinfo/models/platform.dart';
+import 'package:pendlerinfo/models/station.dart';
 import 'package:pendlerinfo/screens/timetable/comment_form.dart';
 import 'package:pendlerinfo/screens/timetable/departure_comment_tile.dart';
 
 class DepartureTile extends StatelessWidget {
   final Departure departure;
+  final Station station;
 
-  DepartureTile({this.departure});
+  DepartureTile({this.departure, this.station});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +23,7 @@ class DepartureTile extends StatelessWidget {
             return Container(
               padding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 30.0),
               child:
-                  CommentForm(this.departure.stopId, this.departure.number, ''),
+              CommentForm(this.departure.stopId, this.departure.number, messagePrefix(departure, station)),
             );
           });
     }
@@ -34,12 +36,18 @@ class DepartureTile extends StatelessWidget {
             Row(
               children: [
                 SizedBox(
-                    width: MediaQuery.of(context).size.width / 4.8,
+                    width: MediaQuery
+                        .of(context)
+                        .size
+                        .width / 4.8,
                     child: Column(children: [
                       Row(
                         children: [
                           SizedBox(
-                            width: (MediaQuery.of(context).size.width / 4.8) / 2.8,
+                            width: (MediaQuery
+                                .of(context)
+                                .size
+                                .width / 4.8) / 2.8,
                             child: Column(
                               children: [
                                 Row(
@@ -52,12 +60,12 @@ class DepartureTile extends StatelessWidget {
                                   children: [
                                     Text(
                                         departure.departure.prediction != null
-                                            ? DateFormat('kk:mm').format(
-                                                departure.departure.prediction)
+                                            ? DateFormat('HH:mm').format(
+                                            departure.departure.prediction)
                                             : '',
                                         style: TextStyle(
                                           color:
-                                              Color.fromRGBO(29, 170, 202, 10),
+                                          Color.fromRGBO(29, 170, 202, 10),
                                           fontWeight: FontWeight.w400,
                                           fontSize: 12,
                                         ))
@@ -70,7 +78,7 @@ class DepartureTile extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Text(
-                                  DateFormat('kk:mm')
+                                  DateFormat('HH:mm')
                                       .format(departure.departure.planned),
                                   style: TextStyle(
                                     fontSize: 16,
@@ -85,7 +93,10 @@ class DepartureTile extends StatelessWidget {
                       )
                     ])),
                 SizedBox(
-                  width: MediaQuery.of(context).size.width / 5 * 3,
+                  width: MediaQuery
+                      .of(context)
+                      .size
+                      .width / 5 * 3,
                   child: Column(
                     children: [
                       //Text(departure.path.planned),
@@ -104,7 +115,10 @@ class DepartureTile extends StatelessWidget {
                 Column(
                   children: [
                     SizedBox(
-                        width: MediaQuery.of(context).size.width / 12,
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width / 12,
                         child: IconButton(
                           icon: Icon(Icons.add_comment_rounded),
                           tooltip: 'Sag was zu diesem Zug',
@@ -121,8 +135,8 @@ class DepartureTile extends StatelessWidget {
                             height: 20,
                             child: Text(
                               departure.featuredDestination.arrival != null
-                                  ? DateFormat('kk:mm').format(
-                                      departure.featuredDestination.arrival)
+                                  ? DateFormat('HH:mm').format(
+                                  departure.featuredDestination.arrival)
                                   : '',
                               style: TextStyle(fontSize: 10),
                             )),
@@ -132,7 +146,10 @@ class DepartureTile extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.baseline,
                       children: [
                         SizedBox(
-                            height: MediaQuery.of(context).size.width / 12,
+                            height: MediaQuery
+                                .of(context)
+                                .size
+                                .width / 12,
                             child: PlatformWidget(platform: departure.platform))
                       ],
                     )
@@ -143,6 +160,10 @@ class DepartureTile extends StatelessWidget {
             CommentsWidget(comments: departure.comments)
           ])),
     );
+  }
+
+  String messagePrefix(Departure departure, Station station) {
+    return DateFormat('HH:mm').format(departure.departure.planned) + ' ab ' + station.nameShort + ' [' + departure.number + ']: ';
   }
 }
 
@@ -177,11 +198,11 @@ class ChangedDepartureWidget extends StatelessWidget {
     if (departure.changed != null &&
         departure.changed.isAfter(departure.planned)) {
       return Text(
-        DateFormat('kk:mm').format(departure.changed),
+        DateFormat('HH:mm').format(departure.changed),
         style: TextStyle(color: Colors.red, fontSize: 12),
       );
     } else if (departure.changed != null) {
-      return Text(DateFormat('kk:mm').format(departure.changed),
+      return Text(DateFormat('HH:mm').format(departure.changed),
           style: TextStyle(color: Colors.grey, fontSize: 12));
     } else {
       return Text('');
@@ -200,7 +221,9 @@ class InfoLinesWidget extends StatelessWidget {
     String left = '';
     String reason = '';
     //String pth = '';
-    if (departure.status.left) {
+    if (departure.status.cancelled) {
+      left = 'Zug fällt aus!';
+    } else if (departure.status.left) {
       left = 'abgefahren!';
     } else if (DateTime.now()
         .add(Duration(minutes: -1))

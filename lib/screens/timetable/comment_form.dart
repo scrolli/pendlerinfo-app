@@ -45,7 +45,7 @@ class _CommentFormState extends State<CommentForm> {
                 val.isEmpty ? 'Bitte gib einen Kommentar ein' : null,
             onChanged: (val) => setState(() => _message = val),
           ),
-          SizedBox(height: 100.0),
+          SizedBox(height: 105.0),
           RaisedButton(
               color: Colors.blue[900],
               child: Text(

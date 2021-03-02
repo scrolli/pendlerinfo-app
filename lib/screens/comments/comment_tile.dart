@@ -25,7 +25,7 @@ class CommentTile extends StatelessWidget {
                   )
               ),
             ),
-            Text(DateFormat('kk:mm dd.MM.yyyy').format(comment.published),
+            Text(DateFormat('HH:mm dd.MM.yyyy').format(comment.published),
                 textAlign: TextAlign.right
             )
           ]),

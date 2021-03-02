@@ -20,7 +20,9 @@ class _FeaturedTrackinfoListState extends State<FeaturedTrackinfoList> {
           .of(context)
           .size
           .width,
-          child: Text('derzeit keine Meldungen'));
+          child: Center(
+              child:Text('aktuell keine Meldungen')
+          ));
     }
     return ListView.builder(
       itemCount: featuredTrackinfos.length,

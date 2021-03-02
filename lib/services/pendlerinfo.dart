@@ -29,9 +29,9 @@ Future<List<Station>> fetchStations() async {
 
 Future<List<Departure>> fetchDepartures(int station, Station destination) async {
   final dir = await getApplicationDocumentsDirectory();
-  final file = new File("${dir.path}/timetable/{$station}");
+  final file = new File("${dir.path}/timetable-" + station.toString());
 
-  print("${dir.path}/timetable/{$station}");
+  print("${dir.path}/timetable-$station");
 
   final response = await http.get(
       'https://api.pendlerinfo.app/timetable?station=' + station.toString());

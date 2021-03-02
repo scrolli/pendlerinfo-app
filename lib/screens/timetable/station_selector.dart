@@ -94,7 +94,7 @@ class _StationSelectorState extends State<StationSelector> {
       //height: MediaQuery.of(context).size.height / 5 * 3.2,
       height: MediaQuery.of(context).size.height / 5 * 3.5,
       child: StreamProvider<List<Departure>>.value(
-          value: Stream.fromFuture(departures), child: DepartureList()),
+          value: Stream.fromFuture(departures), child: DepartureList(_departureStation, _destinationStation)),
     );
   }
 }

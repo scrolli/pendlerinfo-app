@@ -22,7 +22,7 @@ class TrackinfoTile extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                      DateFormat('kk:mm')
+                      DateFormat('HH:mm')
                           .format(trackinfo.published),
                       textAlign: TextAlign.right,
                       style: TextStyle(fontWeight: FontWeight.bold)),

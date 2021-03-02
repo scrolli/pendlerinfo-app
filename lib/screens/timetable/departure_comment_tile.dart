@@ -13,7 +13,7 @@ class DepartureCommentTile extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 4.0),
       child: Card(
-        margin: EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 0.0),
+        margin: EdgeInsets.fromLTRB(10.0, 6.0, 10.0, 0.0),
         child: Padding(
           padding: EdgeInsets.all(4),
           child: Row(children: [
@@ -21,7 +21,7 @@ class DepartureCommentTile extends StatelessWidget {
               child: Text(comment.message + '             ',
                   style: TextStyle(fontWeight: FontWeight.bold)),
             ),
-            Text(DateFormat('kk:mm').format(comment.published),
+            Text(DateFormat('HH:mm').format(comment.published),
                 textAlign: TextAlign.right)
           ]),
         ),
