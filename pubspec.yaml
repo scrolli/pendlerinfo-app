@@ -43,9 +43,6 @@ dev_dependencies:
 # The following section is specific to Flutter.
 flutter:
   fonts:
-    - family: Oswald
-      fonts:
-        - asset: fonts/Oswald-Regular.ttf
     - family: Roboto
       fonts:
         - asset: fonts/RobotoCondensed-Regular.ttf
