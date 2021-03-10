@@ -1,7 +1,7 @@
 class Status {
 
-  final bool started;
-  final bool left;
+  bool started;
+  bool left;
   final bool cancelled;
   final String reason;
 

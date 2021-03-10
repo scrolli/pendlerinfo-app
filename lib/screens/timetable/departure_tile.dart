@@ -131,25 +131,24 @@ class DepartureTile extends StatelessWidget {
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.baseline,
                       children: [
-                        SizedBox(
+                        Center(
+                          child: SizedBox(
                             height: 20,
                             child: Text(
                               departure.featuredDestination.arrival != null
                                   ? DateFormat('HH:mm').format(
                                   departure.featuredDestination.arrival)
                                   : '',
-                              style: TextStyle(fontSize: 10),
+                              style: TextStyle(fontSize: 12),
                             )),
+                        )
                       ],
                     ),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.baseline,
                       children: [
                         SizedBox(
-                            height: MediaQuery
-                                .of(context)
-                                .size
-                                .width / 12,
+                            height: 40,
                             child: PlatformWidget(platform: departure.platform))
                       ],
                     )

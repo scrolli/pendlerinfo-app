@@ -34,7 +34,7 @@ Future<List<Departure>> fetchDepartures(int station, Station destination) async 
   print("${dir.path}/timetable-$station");
 
   final response = await http.get(
-      'https://api.pendlerinfo.app/timetable?station=' + station.toString());
+      'https://api.pendlerinfo.app/timetable?station=' + station.toString() + "&destination=" + destination.eva.toString());
   if (response.statusCode == 200) {
     file.writeAsString(response.body, flush: true, mode: FileMode.write);
     final List parsedList = json.decode(response.body);
@@ -42,7 +42,9 @@ Future<List<Departure>> fetchDepartures(int station, Station destination) async 
   } else if (file.existsSync()) {
     var response = await file.readAsString();
     final List parsedList = json.decode(response);
-    return parsedList.map((val) => Departure.fromJson(val)).toList();
+    var result = parsedList.map((val) => Departure.fromJson(val)).toList();
+    result.where((e) => DateTime.now().isAfter(e.departure.changed ?? e.departure.planned)).forEach((d) => d.status.left = true);
+    return result;
   } else {
     return List.empty();
   }
