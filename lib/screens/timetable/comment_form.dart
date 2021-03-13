@@ -46,8 +46,11 @@ class _CommentFormState extends State<CommentForm> {
             onChanged: (val) => setState(() => _message = val),
           ),
           SizedBox(height: 105.0),
-          RaisedButton(
-              color: Colors.blue[900],
+          ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Colors.blue[900], // background
+                onPrimary: Colors.white, // foreground
+              ),
               child: Text(
                 'Veröffentlichen',
                 style: TextStyle(color: Colors.white),

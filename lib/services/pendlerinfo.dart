@@ -13,7 +13,8 @@ Future<List<Station>> fetchStations() async {
   final dir = await getApplicationDocumentsDirectory();
   final file = new File("${dir.path}/stations");
 
-  final response = await http.get('https://api.pendlerinfo.app/stations');
+  var uri = Uri.https('https://api.pendlerinfo.app','/stations');
+  final response = await http.get(uri);
   if (response.statusCode == 200) {
     file.writeAsString(response.body, flush: true, mode: FileMode.write);
     final List parsedList = json.decode(response.body);
@@ -33,8 +34,12 @@ Future<List<Departure>> fetchDepartures(int station, Station destination) async 
 
   print("${dir.path}/timetable-$station");
 
-  final response = await http.get(
-      'https://api.pendlerinfo.app/timetable?station=' + station.toString() + "&destination=" + destination.eva.toString());
+  var queryParameters = {
+    'station': station.toString(),
+    'destination': destination.eva.toString(),
+  };
+  var uri = Uri.https('https://api.pendlerinfo.app','/timetable', queryParameters);
+  final response = await http.get(uri);
   if (response.statusCode == 200) {
     file.writeAsString(response.body, flush: true, mode: FileMode.write);
     final List parsedList = json.decode(response.body);
@@ -54,8 +59,9 @@ Future<List<Trackinfo>> fetchTrackinfos() async {
   final dir = await getApplicationDocumentsDirectory();
   final file = new File("${dir.path}/trackinfos");
 
-  final response = await http.get(
-      'https://api.pendlerinfo.app/trackinfos');
+
+  var uri = Uri.https('https://api.pendlerinfo.app','/trackinfos');
+  final response = await http.get(uri);
   if (response.statusCode == 200) {
     file.writeAsString(response.body, flush: true, mode: FileMode.write);
     final List parsedList = json.decode(response.body);
@@ -73,8 +79,8 @@ Future<List<Comment>> fetchComments() async {
   final dir = await getApplicationDocumentsDirectory();
   final file = new File("${dir.path}/comments");
 
-  final response = await http.get(
-      'https://api.pendlerinfo.app/comments');
+  var uri = Uri.https('https://api.pendlerinfo.app','/comments');
+  final response = await http.get(uri);
   if (response.statusCode == 200) {
     final List parsedList = json.decode(response.body);
     return List<Comment>.from(parsedList.map((val) => Comment.fromJson(val)));
