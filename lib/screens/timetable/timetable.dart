@@ -5,22 +5,20 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class TimetablePage extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.grey[400],
-        appBar: AppBar(
-          title: Text('Pendlerinfo - Abfahrt'),
-          backgroundColor: Colors.blue[900],
-          elevation: 0.0,
-        ),
-        body: Container(
+      backgroundColor: Colors.grey[400],
+      appBar: AppBar(
+        title: Text('Pendlerinfo - Abfahrt'),
+        backgroundColor: Colors.blue[900],
+        elevation: 0.0,
+      ),
+      body: Container(
           child: StreamProvider<List<Station>>.value(
-                  value: Stream.fromFuture(fetchStations()),
-                  child: StationSelector()
-              )
-        ),
+              initialData: [],
+              value: Stream.fromFuture(fetchStations()),
+              child: StationSelector())),
     );
   }
 }

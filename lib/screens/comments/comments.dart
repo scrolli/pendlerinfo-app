@@ -9,6 +9,7 @@ class CommentsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamProvider<List<Comment>>.value(
+      initialData: [],
       value: Stream.fromFuture(fetchComments()),
       child: Scaffold(
         backgroundColor: Colors.grey[400],

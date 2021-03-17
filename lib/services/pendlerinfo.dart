@@ -13,9 +13,10 @@ Future<List<Station>> fetchStations() async {
   final dir = await getApplicationDocumentsDirectory();
   final file = new File("${dir.path}/stations");
 
-  var uri = Uri.https('https://api.pendlerinfo.app','/stations');
+  var uri = Uri.https('api.pendlerinfo.app','/stations');
   final response = await http.get(uri);
   if (response.statusCode == 200) {
+  print(response.body);
     file.writeAsString(response.body, flush: true, mode: FileMode.write);
     final List parsedList = json.decode(response.body);
     return parsedList.map((val) => Station.fromJson(val)).toList();
@@ -38,7 +39,7 @@ Future<List<Departure>> fetchDepartures(int station, Station destination) async 
     'station': station.toString(),
     'destination': destination.eva.toString(),
   };
-  var uri = Uri.https('https://api.pendlerinfo.app','/timetable', queryParameters);
+  var uri = Uri.https('api.pendlerinfo.app','/timetable', queryParameters);
   final response = await http.get(uri);
   if (response.statusCode == 200) {
     file.writeAsString(response.body, flush: true, mode: FileMode.write);
@@ -60,7 +61,7 @@ Future<List<Trackinfo>> fetchTrackinfos() async {
   final file = new File("${dir.path}/trackinfos");
 
 
-  var uri = Uri.https('https://api.pendlerinfo.app','/trackinfos');
+  var uri = Uri.https('api.pendlerinfo.app','/trackinfos');
   final response = await http.get(uri);
   if (response.statusCode == 200) {
     file.writeAsString(response.body, flush: true, mode: FileMode.write);
@@ -79,7 +80,7 @@ Future<List<Comment>> fetchComments() async {
   final dir = await getApplicationDocumentsDirectory();
   final file = new File("${dir.path}/comments");
 
-  var uri = Uri.https('https://api.pendlerinfo.app','/comments');
+  var uri = Uri.https('api.pendlerinfo.app','/comments');
   final response = await http.get(uri);
   if (response.statusCode == 200) {
     final List parsedList = json.decode(response.body);

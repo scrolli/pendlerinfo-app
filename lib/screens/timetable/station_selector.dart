@@ -115,7 +115,7 @@ class _StationSelectorState extends State<StationSelector> {
       ]),
       ),
       Container(
-          height: MediaQuery.of(context).size.height / 5 * 3.4,
+          height: MediaQuery.of(context).size.height / 5 * 3.15,
           child: RefreshIndicator(
               child: ListView.builder(
                 itemCount: departures.length,
@@ -170,18 +170,3 @@ class _StationSelectorState extends State<StationSelector> {
     });
   }
 }
-
-/*
-  Widget departureList(Future<List<Departure>> departures) {
-    return Container(
-      height: MediaQuery.of(context).size.height / 5 * 3.2,
-      height: MediaQuery.of(context).size.height / 5 * 3.5,
-      child:
-      //StreamProvider<List<Departure>>.value(
-      //    value: Stream.fromFuture(departures), child:
-      DepartureList(_departureStation, _destinationStation)
-      //),
-    );
-  }
-}
-*/

@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:pendlerinfo/screens/comments/comments.dart';
 import 'package:pendlerinfo/screens/timetable/timetable.dart';
 import 'package:pendlerinfo/screens/trackinfos/trackinfos.dart';
@@ -13,6 +14,8 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
     int _currentIndex = 0;
 
+    final FirebaseAnalytics analytics = FirebaseAnalytics();
+
     Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
@@ -27,6 +30,8 @@ class _HomeState extends State<Home> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (value) {
+          analytics.setCurrentScreen(screenName: '/home/' + TabNavigationItem.items.elementAt(value).title);
+          analytics.logSelectContent(contentType: 'BottomMenu', itemId:TabNavigationItem.items.elementAt(value).title);
           // Respond to item press.
           setState(() => _currentIndex = value);
         },

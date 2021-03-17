@@ -9,6 +9,7 @@ class TrackinfosPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamProvider<List<Trackinfo>>.value(
+      initialData: [],
       value: Stream.fromFuture(fetchTrackinfos()),
       child: Scaffold(
         backgroundColor: Colors.grey[400],

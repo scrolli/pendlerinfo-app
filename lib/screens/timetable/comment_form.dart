@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:pendlerinfo/models/comment.dart';
 import 'package:pendlerinfo/services/pendlerinfo.dart';
@@ -11,10 +12,12 @@ class CommentForm extends StatefulWidget {
   CommentForm(this._stopId, this._number, this._message);
 
   @override
-  _CommentFormState createState() => _CommentFormState(this._stopId, this._number, this._message);
+  _CommentFormState createState() =>
+      _CommentFormState(this._stopId, this._number, this._message);
 }
 
 class _CommentFormState extends State<CommentForm> {
+  final FirebaseAnalytics analytics = FirebaseAnalytics();
   final _formKey = GlobalKey<FormState>();
 
   // form values
@@ -22,7 +25,7 @@ class _CommentFormState extends State<CommentForm> {
   String _number;
   String _message;
 
-  _CommentFormState( this._stopId, this._number, this._message );
+  _CommentFormState(this._stopId, this._number, this._message);
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +45,7 @@ class _CommentFormState extends State<CommentForm> {
             minLines: 1,
             maxLines: 1,
             validator: (val) =>
-                val.isEmpty ? 'Bitte gib einen Kommentar ein' : null,
+            val.isEmpty ? 'Bitte gib einen Kommentar ein' : null,
             onChanged: (val) => setState(() => _message = val),
           ),
           SizedBox(height: 105.0),
@@ -57,7 +60,14 @@ class _CommentFormState extends State<CommentForm> {
               ),
               onPressed: () async {
                 if (_formKey.currentState.validate()) {
-                  await putComment(Comment(stopId: _stopId, number: _number, message: _message));
+                  final Map<String, dynamic> data = {
+                    'stopId': _stopId,
+                    'number': _number,
+                    'message': _message,
+                  };
+                  analytics.logEvent(name: 'Comment created', parameters: data);
+                  await putComment(Comment(
+                      stopId: _stopId, number: _number, message: _message));
                   Navigator.pop(context);
                 }
               }),

@@ -129,7 +129,6 @@ class DepartureTile extends StatelessWidget {
                 Column(
                   children: [
                     Row(
-                      crossAxisAlignment: CrossAxisAlignment.baseline,
                       children: [
                         Center(
                           child: SizedBox(
@@ -145,7 +144,6 @@ class DepartureTile extends StatelessWidget {
                       ],
                     ),
                     Row(
-                      crossAxisAlignment: CrossAxisAlignment.baseline,
                       children: [
                         SizedBox(
                             height: 40,
