@@ -115,7 +115,7 @@ class _StationSelectorState extends State<StationSelector> {
       ]),
       ),
       Container(
-          height: MediaQuery.of(context).size.height / 5 * 3.15,
+          height: MediaQuery.of(context).size.height / 5 * 3.4,
           child: RefreshIndicator(
               child: ListView.builder(
                 itemCount: departures.length,
