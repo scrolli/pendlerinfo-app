@@ -29,12 +29,19 @@ class _CommentFormState extends State<CommentForm> {
 
   @override
   Widget build(BuildContext context) {
+    String headline;
+    if (this._number == null) {
+      headline = 'Deine Meldung an die Pendler';
+    } else {
+      headline = 'Deine Meldung zum Zug ' + this._number;
+    }
+
     return Form(
       key: _formKey,
       child: Column(
         children: <Widget>[
           Text(
-            'Deine Meldung zum Zug ' + this._number,
+            headline,
             style: TextStyle(fontSize: 15.0),
           ),
           SizedBox(height: 20.0),

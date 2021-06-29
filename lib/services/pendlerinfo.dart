@@ -23,7 +23,8 @@ Future<List<Station>> fetchStations() async {
   } else if (file.existsSync()) {
     var response = await file.readAsString();
     final List parsedList = json.decode(response);
-    return parsedList.map((val) => Station.fromJson(val)).toList();
+    //return parsedList.map((val) => Station.fromJson(val)).toList();
+    return List.empty();
   } else {
     return List.empty();
   }

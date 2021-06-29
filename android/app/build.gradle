@@ -64,7 +64,9 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    // Adding Firebase Crashlytics SDK
+    implementation 'com.google.firebase:firebase-crashlytics:17.0.0-beta01'
 }
 
 apply plugin: 'com.google.gms.google-services'
-//apply plugin: 'com.google.firebase.crashlytics'
+apply plugin: 'com.google.firebase.crashlytics'
